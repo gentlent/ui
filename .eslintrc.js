@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   env: {
     commonjs: true,
@@ -10,8 +8,6 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 2022,
-    tsconfigRootDir: './',
-    project: path.join(__dirname, 'tsconfig.json'),
   },
   extends: [
     'next/core-web-vitals',

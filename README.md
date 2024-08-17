@@ -12,6 +12,17 @@ To install Gentlent, run the following command:
 npm install @gentlent/ui
 ```
 
+In your next.config.js, add the following:
+
+```js
+  transpilePackages: ['@gentlent/ui'],
+  webpack: (config) => {
+    config.resolve.alias.react = path.resolve(__dirname, 'node_modules/react');
+    config.resolve.alias['styled-components'] = path.resolve(__dirname, 'node_modules/styled-components');
+    return config;
+  },
+```
+
 ## Usage
 
 To use Gentlent's UI Framework, import the components you need from the package:
