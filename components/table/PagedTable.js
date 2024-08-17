@@ -223,7 +223,7 @@ export default function PagedTable(props = {
             ).map((row, index) => (<StyledTR theme={theme} key={index}>
               {props.columns.map((column, index2) => (<StyledTD theme={theme} key={index2}>
                 {row[column.key] instanceof Date
-                  ? row[column.key].toLocaleDateString(t('currentLocale'), {
+                  ? row[column.key].toLocaleDateString(undefined, {
                     year: 'numeric',
                     month: '2-digit',
                     day: '2-digit',
