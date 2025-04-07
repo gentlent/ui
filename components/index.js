@@ -34,6 +34,7 @@ export const Avatars = dynamic(() => import('./avatars/Avatars'));
 export const Input = dynamic(() => import('./form/Input'));
 export const TextArea = dynamic(() => import('./form/TextArea'));
 export const Checkbox = dynamic(() => import('./form/Checkbox'));
+export const Radio = dynamic(() => import('./form/Radio'));
 export const Select = dynamic(() => import('./form/Select'));
 export const Table = dynamic(() => import('./table/Table'));
 export const PagedTable = dynamic(() => import('./table/PagedTable'));
