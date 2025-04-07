@@ -46,13 +46,17 @@ const StyledRadio = styled.input`
     ${({ theme }) => (theme.baseLineHeight - 1.25) / 2 + 0.1}em 0
     0 0;
 
+  & + label {
+      opacity: ${emphasize.medium};
+  }
+
   &:checked {
     background-image: url(https://icons.gentcdn.com/solid/circle-dot?primary=ffffff);
     background-color: ${({ theme }) => theme.primary};
     border-color: ${({ theme }) => theme.primary};
 
     & + label {
-      opacity: ${emphasize.medium};
+      opacity: 1;
     }
   }
 `;
