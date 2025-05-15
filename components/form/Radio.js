@@ -1,4 +1,4 @@
-import { useId, useContext, useState } from 'react';
+import { useId, useContext } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from '../../context/theme.context';
 import {
@@ -70,10 +70,8 @@ const StyledRadioLabel = styled.label`
 export default function Radio(props) {
   const id = useId();
   const { theme } = useContext(ThemeContext);
-  const [checked, setChecked] = useState(props.checked || false);
 
   const propsCopy = { ...props };
-  propsCopy.checked = checked;
   delete propsCopy.children;
 
   const parentProps = {};
@@ -91,13 +89,7 @@ export default function Radio(props) {
       theme={theme}
       {...propsCopy}
       id={props.id || id}
-      type="radio"
-      onChange={(e) => {
-        setChecked(e.target.checked);
-        if (props.onChange) {
-          props.onChange(e);
-        }
-      }} />
+      type="radio" />
     <StyledRadioLabel theme={theme} disabled={props.disabled} for={props.id || id}>
       {props.children}
     </StyledRadioLabel>
