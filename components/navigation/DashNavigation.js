@@ -362,7 +362,7 @@ export function DashSidebarLink(props) {
   useEffect(() => {
     const handleRouteChange = (url) => {
       // Trim potential language prefix (/de-de/)
-      const normalizedUrl = url.replace(/^\/[a-zA-Z]{2}-[a-zA-Z]{2}\//, '/');
+      const normalizedUrl = url.replace(/^\/[a-zA-Z]{2}\//, '/');
       if (typeof props.active === 'undefined') {
         setActive(GetTranslatedLink(normalizedUrl) === props.href || (normalizedUrl.startsWith(`${props.href}/`) && !props.exactMatch));
       }

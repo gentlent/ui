@@ -52,7 +52,7 @@ export default function DashSidebarAccordion(props) {
     // If isActive
     const handleRouteChange = (url) => {
       // Trim potential language prefix (/de-de/)
-      const normalizedUrl = url.replace(/^\/[a-zA-Z]{2}-[a-zA-Z]{2}\//, '/');
+      const normalizedUrl = url.replace(/^\/[a-zA-Z]{2}\//, '/');
       if (typeof props.active === 'undefined') {
         const shouldBeActive = GetTranslatedLink(normalizedUrl) === header.props.href;
         const shouldBeActiveOrOpen = shouldBeActive || normalizedUrl.startsWith(`${header.props.href}/`);

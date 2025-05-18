@@ -1,23 +1,23 @@
 import { useRouter } from 'next/router';
-import * as i18nEnUs from './en-us';
-import * as i18nDeDe from './de-de';
-import * as i18nSkSk from './sk-sk';
+import * as i18nEn from './en';
+import * as i18nDe from './de';
+import * as i18nSk from './sk';
 
 const urlTranslations = {
-  'en-US': i18nEnUs.url || {},
-  'de-DE': i18nDeDe.url || {},
-  'sk-SK': i18nSkSk.url || {},
+  en: i18nEn.url || {},
+  de: i18nDe.url || {},
+  sk: i18nSk.url || {},
 };
 
 const translations = {
-  'en-US': {
-    ...Object.values(i18nEnUs).reduce((a, b) => ({ ...a, ...b }), {}),
+  en: {
+    ...Object.values(i18nEn).reduce((a, b) => ({ ...a, ...b }), {}),
   },
-  'de-DE': {
-    ...Object.values(i18nDeDe).reduce((a, b) => ({ ...a, ...b }), {}),
+  de: {
+    ...Object.values(i18nDe).reduce((a, b) => ({ ...a, ...b }), {}),
   },
-  'sk-SK': {
-    ...Object.values(i18nSkSk).reduce((a, b) => ({ ...a, ...b }), {}),
+  sk: {
+    ...Object.values(i18nSk).reduce((a, b) => ({ ...a, ...b }), {}),
   },
 };
 
@@ -68,12 +68,12 @@ export const Languages = Object.keys(translations);
 
 export function GetCurrentLocale() {
   const router = useRouter();
-  return translations[router.locale] ? router.locale : 'en-US';
+  return translations[router.locale] ? router.locale : 'en';
 }
 
 export function GetLocaleLink(locale) {
   // eslint-disable-next-line no-param-reassign
-  locale = `${locale.split('-')[0]}-${locale.split('-')[1].toUpperCase()}`;
+  locale = `${locale.split('-')[0]}.toUpperCase()}`;
 
   const router = useRouter();
   const query = router.asPath.split('?').slice(1).join('?');
@@ -90,7 +90,7 @@ export function GetLocaleLink(locale) {
 export default function GetTranslation(key, langOrVars = undefined, vars = undefined) {
   const router = useRouter();
   const translatedString = translations[router.locale][key]
-    || translations['en-US'][key]
+    || translations.en[key]
     || `{${key}}`;
 
   if (typeof langOrVars === 'string' && translations?.[langOrVars]?.[key]) {
@@ -129,20 +129,20 @@ export function GetTranslatedLink(url, skipReverseSearch = false) {
   let locale = path.match(/^\/([a-z]{2}-[A-Z]{2})\//)?.[1];
 
   if (!locale) {
-    locale = 'en-US';
+    locale = 'en';
   } else {
     path = path.substr(locale.length + 1);
   }
 
-  const prefix = locale === 'en-US' ? '' : `/${locale}`;
+  const prefix = locale === 'en' ? '' : `/${locale}`;
   let translatedPath = path;
 
   if (urlTranslations[locale]?.[path]) {
     // Translation found
     translatedPath = urlTranslations[locale]?.[path];
-  } else if (urlTranslations['en-US']?.[path]) {
+  } else if (urlTranslations.en?.[path]) {
     // Translation not found, but it exists in US-english
-    translatedPath = urlTranslations['en-US']?.[path];
+    translatedPath = urlTranslations.en?.[path];
   } else if (!skipReverseSearch) {
     // Translation not found, does not exist in English, try reverse search and
     // return current locale translation if found
