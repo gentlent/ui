@@ -53,7 +53,9 @@ const StyledInput = styled(BaseComponent)`
   padding: 0;
   width: 100%;
   transition: all 0.2s ${transitions.default};
-  appearance: none;
+  ${({ type }) => type !== 'date' && `
+    appearance: none;
+  `}
   color: ${({ theme }) => theme.textColor};
 
   ${({ inline, theme }) => inline && `
