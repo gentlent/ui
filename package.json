@@ -1,6 +1,6 @@
 {
   "name": "@gentlent/ui",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Gentlent is a UI framework made for NextJS to build web applications. It is designed to be simple and easy to use. Gentlent provides a set of components and utilities that can be used to quickly build web applications.",
   "main": "index.js",
   "scripts": {
