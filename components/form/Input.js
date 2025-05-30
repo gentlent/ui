@@ -40,6 +40,10 @@ const StyledGroup = styled(BaseComponent)`
     background: transparent;
     opacity: ${emphasize.disabled};
   `}
+
+  ${({ type }) => type === '2fa' && `
+    width: min-content;
+  `}
 `;
 
 const StyledInput = styled(BaseComponent)`
@@ -91,6 +95,41 @@ const StyledInput = styled(BaseComponent)`
     opacity: 1;
     -webkit-text-fill-color: ${colors['gray-600']};
   `}
+
+  ${({ type, theme }) => type === '2fa' && `
+    font-family: monospace, monospace;
+    letter-spacing: ${theme.baseSpacingSize * 3}px;
+    margin-right: -${theme.baseSpacingSize * 3}px;
+    width: calc(${theme.baseSpacingSize * 19.5}px + 6ch);
+
+    &::selection {
+      background: transparent;
+    }
+  `}
+`;
+
+const MFAInputOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  font-family: monospace, monospace;
+  width: 100%;
+  ${({ theme }) => `
+    background: linear-gradient(
+      to right,
+      ${new Array(5).fill(true).map((_, i) => `
+        transparent calc(${theme.baseSpacingSize * (3 * (i + 1)) - 1}px + ${i + 1}ch),
+        ${colors['gray-200']} calc(${theme.baseSpacingSize * (3 * (i + 1)) - 1}px + ${i + 1}ch),
+        ${colors['gray-200']} calc(${theme.baseSpacingSize * (3 * (i + 1))}px + ${i + 1}ch),
+        transparent calc(${theme.baseSpacingSize * (3 * (i + 1))}px + ${i + 1}ch)
+      `).join(', ')}
+    );
+  `}
+
+  opacity: 0.5;
+  
+  pointer-events: none;
 `;
 
 const StyledIcon = styled(Icon)`
@@ -299,6 +338,7 @@ export default function Input(props = {
         disabled={props.disabled}
         elementType="div"
         style={{ ...props.style }}
+        type={props.type}
         noMargin={props.noMargin}
         inline={props.inline}>
         {props.icon && <StyledIcon
@@ -313,8 +353,15 @@ export default function Input(props = {
           theme={theme} pos={'left'} inline={props.inline}>
           {props.textLeft}
         </StyledText>}
+
+        {props.type === '2fa' && <>
+          <MFAInputOverlay theme={theme} />
+        </>}
+
         <StyledInput
           elementType="input"
+          autoComplete={props.type === '2fa' ? 'one-time-code' : undefined}
+          maxLength={props.type === '2fa' ? '6' : undefined}
           {...props}
           baseRef={InputRef}
           theme={theme}
