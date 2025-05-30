@@ -78,5 +78,6 @@ export const DropdownLink = dynamic(() => import('./dropdown/Dropdown').then((m)
 export const NavDropdownFooter = dynamic(() => import('./navigation/NavDropdown').then((m) => m.NavDropdownFooter));
 export const NavDropdownLink = dynamic(() => import('./navigation/NavDropdown').then((m) => m.NavDropdownLink));
 export const NavDropdownTitle = dynamic(() => import('./navigation/NavDropdown').then((m) => m.NavDropdownTitle));
+export const Editor = dynamic(() => import('./editor/Editor'));
 
 export const AnimeJS = dynamic(() => import('./_wrappers/AnimeJS'));
