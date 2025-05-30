@@ -25,7 +25,7 @@ const StyledSelect = styled(Input)`
     padding: ${(props) => props.theme.baseSpacingSize * 0.5}px ${(props) => props.theme.baseSpacingSize}px;
   }
 
-  & option:hover {
+  & option:not(:disabled):hover {
     background-color: ${colors['gray-100']};
   }
 
