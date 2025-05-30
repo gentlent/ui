@@ -112,9 +112,13 @@ const MFAInputOverlay = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-
   font-family: monospace, monospace;
   width: 100%;
+
+  ${({ hasIcon }) => hasIcon && `
+    left: 1.5em;
+  `}
+
   ${({ theme }) => `
     background: linear-gradient(
       to right,
@@ -128,7 +132,6 @@ const MFAInputOverlay = styled.div`
   `}
 
   opacity: 0.5;
-  
   pointer-events: none;
 `;
 
@@ -355,7 +358,7 @@ export default function Input(props = {
         </StyledText>}
 
         {props.type === '2fa' && <>
-          <MFAInputOverlay theme={theme} />
+          <MFAInputOverlay hasIcon={!!props.icon} theme={theme} />
         </>}
 
         <StyledInput
