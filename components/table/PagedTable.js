@@ -5,6 +5,7 @@ import { ThemeContext } from '../../context/theme.context';
 import {
   breakpointWidth,
   colors, fontSize, fontWeight, getFontSize,
+  transitions,
 } from '../../utils/themes/vars';
 import { Column, Grid } from '../grid/Grid';
 import TextStyle from '../_base/TextStyles';
@@ -17,12 +18,18 @@ import BaseComponent from '../BaseComponent';
 
 const StyledTableWrapper = styled.div`
   margin: ${(props) => props.theme.baseSpacingSize * 4}px 0 ${(props) => props.theme.baseSpacingSize * 2}px;
+
+  ${(props) => props.card && `
+    border-radius: ${props.theme.baseBorderRadius}px;
+    border: 1px solid ${props.theme.borderColor};
+  `}
 `;
 
 const StyledTable = styled.table`
   border: none;
   width: 100%;
   border-collapse: separate !important;
+  background: transparent;
 
   thead tr {
     padding-top: 0 !important;
@@ -30,9 +37,22 @@ const StyledTable = styled.table`
 `;
 
 const StyledTR = styled.tr`
+  & td {
+    transition: .2s all ${transitions.default};
+  }
+
   &:hover td {
     background-color: ${colors['gray-lightest']};
+    transition: 0s all ${transitions.default};
   }
+
+  ${(props) => props.card && `
+    &:last-child td {
+      border-bottom: none !important;
+      border-bottom-left-radius: ${props.theme.baseBorderRadius}px;
+      border-bottom-right-radius: ${props.theme.baseBorderRadius}px;
+    }
+  `}
 
   @media (max-width: ${breakpointWidth}px) {
     border-bottom: 1px solid ${(props) => props.theme.borderColor} !important;
@@ -76,6 +96,17 @@ const StyledTH = styled.th`
       border-bottom-right-radius: ${(props) => props.theme.baseBorderRadiusSmall}px;
     }
   }
+
+  ${(props) => props.card && `
+    background-color: transparent;
+    border-radius: 0;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+  `}
   
   cursor: pointer;
   margin: 0;
@@ -106,6 +137,7 @@ const StyledTableFooter = styled.div`
 export default function PagedTable(props = {
   columns: [],
   rows: [],
+  card: false,
 }) {
   const rowsLimits = [10, 25, 50, 100];
   const [state, setState] = useState({
@@ -129,9 +161,17 @@ export default function PagedTable(props = {
   const { theme } = useContext(ThemeContext);
 
   return <>
-    <StyledTableWrapper theme={theme}>
-      {props.rows.length > rowsLimits[0] && <BaseComponent marginBottom={1}>
+    <StyledTableWrapper theme={theme} card={props.card}>
+      {props.rows.length > rowsLimits[0] && <BaseComponent marginBottom={!props.card && 1}>
         <Input
+          style={props.card ? {
+            border: 0,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            borderTopLeftRadius: theme.baseBorderRadius,
+            borderTopRightRadius: theme.baseBorderRadius,
+            boxShadow: 'none',
+          } : {}}
           noMargin
           placeholder={t('common.typeToSearch')}
           icon={'search'}
@@ -169,7 +209,7 @@ export default function PagedTable(props = {
         <thead>
           <tr>
             {props.columns.map((column, index) => (
-              <StyledTH theme={theme} key={index} onClick={() => {
+              <StyledTH theme={theme} key={index} card={props.card} onClick={() => {
                 setState((prevState) => ({
                   ...prevState,
                   currentPage: 1,
@@ -220,7 +260,7 @@ export default function PagedTable(props = {
             .slice(
               (state.currentPage - 1) * state.rowsPerPage,
               state.currentPage * state.rowsPerPage,
-            ).map((row, index) => (<StyledTR theme={theme} key={index}>
+            ).map((row, index) => (<StyledTR theme={theme} key={index} card={props.card}>
               {props.columns.map((column, index2) => (<StyledTD theme={theme} key={index2}>
                 {row[column.key] instanceof Date
                   ? row[column.key].toLocaleDateString(undefined, {
