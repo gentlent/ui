@@ -3,6 +3,7 @@ import Children from 'react-children-utilities';
 import styled from 'styled-components';
 import { ThemeContext } from '../../context/theme.context';
 import {
+  boxShadow,
   breakpointWidth,
   colors, fontSize, fontWeight, getFontSize,
   transitions,
@@ -22,6 +23,7 @@ const StyledTableWrapper = styled.div`
   ${(props) => props.card && `
     border-radius: ${props.theme.baseBorderRadius}px;
     border: 1px solid ${props.theme.borderColor};
+    box-shadow: ${boxShadow.light};
   `}
 `;
 
@@ -106,6 +108,7 @@ const StyledTH = styled.th`
     border-bottom-left-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
+    border-top: none !important;
   `}
   
   cursor: pointer;
@@ -165,7 +168,9 @@ export default function PagedTable(props = {
       {props.rows.length > rowsLimits[0] && <BaseComponent marginBottom={!props.card && 1}>
         <Input
           style={props.card ? {
-            border: 0,
+            borderTop: 0,
+            borderRight: 0,
+            borderLeft: 0,
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
             borderTopLeftRadius: theme.baseBorderRadius,

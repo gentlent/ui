@@ -186,7 +186,7 @@ export default function Input(props = {
 
     if (GroupRef.current) {
       if (!props.inline) {
-        GroupRef.current.style.outline = `2px solid ${theme.primary}`;
+        GroupRef.current.style.outline = `1px solid ${theme.primary}`;
       } else {
         GroupRef.current.style.backgroundColor = `${theme.secondaryBackgroundColor}`;
       }
