@@ -26,16 +26,14 @@ function ConditionalContainer(props) {
 }
 
 const Nav = styled.nav`
-  background-color: rgba(${(props) => convertColorHexToRgb(props.theme.navBackground)}, 0.95);
+  background: linear-gradient(to bottom, rgba(${(props) => convertColorHexToRgb(props.theme.navBackground)}, 0.3), transparent);
   color: ${(props) => props.theme.navTextColor};
   display: flex;
   height: ${(props) => expandedNavHeight(props.theme)}px;
   max-height: ${(props) => expandedNavHeight(props.theme)}px;
-  box-shadow: ${(props) => (props.state.wasScrolled || props.state.menuOpened ? boxShadow.light : '0 0 0 0 rgba(0,0,0,0)')};
-  border-bottom: 1px solid ${(props) => (props.state.wasScrolled || props.state.menuOpened ? props.theme.borderColor : 'transparent')};
   will-change: height, max-height, padding-top, padding-bottom;
+  font-weight: 500;
 
-  backdrop-filter: saturate(180%) blur(20px);
   position: fixed;
   top: 0;
   left: 0;
@@ -48,6 +46,19 @@ const Nav = styled.nav`
   & > div {
     display: flex;
   }
+
+  ${(props) => (!props.isSecondary ? `
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: ${expandedNavHeight(props.theme)}px;
+      backdrop-filter: blur(3px) brightness(1.2);
+      mask: linear-gradient(to bottom, black 30%, transparent 100%);
+    }
+  ` : '')}
 `;
 
 const Spacer = styled.div`
@@ -259,14 +270,13 @@ export default function Navigation(props = {
 
   return <>
     {isSecondary && <Spacer theme={theme} isSecondary={isSecondary} />}
-    <Nav theme={theme} state={{ ...state, menuOpened }} style={{
+    <Nav theme={theme} state={{ ...state, menuOpened }} isSecondary={isSecondary} style={{
       height: (theme) - state.scrollAmount,
       maxHeight: expandedNavHeight(theme) - state.scrollAmount,
       paddingTop: themes.default.baseSpacingSize - state.scrollAmount / 2,
       paddingBottom: themes.default.baseSpacingSize - state.scrollAmount / 2,
       ...(isSecondary && {
-        position: 'sticky',
-        top: `${theme.baseSize}px`,
+        position: 'relative',
         zIndex: zIndex.navigation - 1,
       }),
     }}>

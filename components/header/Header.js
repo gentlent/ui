@@ -5,6 +5,7 @@ import { ThemeContext } from '../../context/theme.context';
 
 const HeaderElement = styled.div`
   background-color: ${(props) => props.theme.navBackground};
+  border-top: 1px solid ${(props) => props.theme.borderColor};
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   color: ${(props) => props.theme.navTextColor};
   padding: ${(props) => props.theme.baseSpacingSize * 6}px 0 ${(props) => props.theme.baseSpacingSize * 8}px;
