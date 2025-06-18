@@ -3,6 +3,7 @@ import { useContext } from 'react';
 // import { } from '../../utils/themes/vars';
 import Container from '../container/Container';
 import Brand from './Brand';
+import BaseComponent from '../BaseComponent';
 import { ThemeContext } from '../../context/theme.context';
 
 export { default as FooterLink } from './FooterLink';
@@ -42,11 +43,15 @@ export default function Footer(props = {
     <StickyBottomPadding />
     <StyledFooter theme={theme} noMargin={props.noMargin}>
       <Container>
-        <Brand
-          title={props.title}
-          titleLink={props.titleLink}
-          logoUrl={props.logoUrl}
-          logoLink={props.logoLink}></Brand>
+        {!props.title && !props.logoUrl ? <>
+          <BaseComponent marginTop={4} />
+        </> : <>
+          <Brand
+            title={props.title}
+            titleLink={props.titleLink}
+            logoUrl={props.logoUrl}
+            logoLink={props.logoLink}></Brand>
+        </>}
         {props.children}
       </Container>
     </StyledFooter>
