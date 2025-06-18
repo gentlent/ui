@@ -2,11 +2,14 @@ import styled from 'styled-components';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import CustomLink from '../_base/Link';
-import { emphasize, breakpointWidth, fontWeight } from '../../utils/themes/vars';
+import {
+  emphasize, breakpointWidth, fontWeight, getFontSize, fontSize,
+} from '../../utils/themes/vars';
 import { ThemeContext } from '../../context/theme.context';
 import { GetTranslatedLink } from '../../utils';
 
 const LinkElement = styled(CustomLink)`
+  font-size: ${(props) => getFontSize(props.theme, fontSize.normal) * 0.9}px;
   color: currentColor;
   display: inline-block;
   height: ${(props) => props.theme.baseSize / 4}px;

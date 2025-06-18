@@ -47,8 +47,8 @@ const BrandTextElement = styled.span`
 `;
 
 const BrandLogoElement = styled.img`
-  height: ${(props) => props.theme.baseSize - props.theme.baseSpacingSize * 4.5}px;
-  margin: ${(props) => props.theme.baseSpacingSize * 0.25}px 0 0;
+  height: ${(props) => props.theme.baseSize - props.theme.baseSpacingSize * 5}px;
+  margin: ${(props) => props.theme.baseSpacingSize * 0.5}px 0 0;
   flex: 0 0 auto;
 `;
 
