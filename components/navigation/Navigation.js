@@ -55,7 +55,7 @@ const Nav = styled.nav`
       right: 0;
       top: 0;
       height: ${expandedNavHeight(props.theme)}px;
-      backdrop-filter: blur(3px) brightness(1.2);
+      backdrop-filter: blur(3px) brightness(1);
       mask: linear-gradient(to bottom, black 30%, transparent 100%);
     }
   ` : '')}
