@@ -101,6 +101,7 @@ export default function Editor(props = {
       };
 
       const inputEvent = () => {
+        props.onChange(wysiwyg.innerHTML);
         setValue(wysiwyg.innerHTML);
       };
 
