@@ -85,6 +85,7 @@ export default function Editor(props = {
       wysiwyg.style.border = '0';
       wysiwyg.style.outline = '0';
       wysiwyg.style.padding = `${theme.baseSpacingSize * 1.5}px`;
+      wysiwyg.innerHTML = props.value || '';
 
       wysiwygContainer.appendChild(wysiwyg);
       shadow.appendChild(wysiwygContainer);
@@ -112,7 +113,7 @@ export default function Editor(props = {
     <input
       type="hidden"
       name={props.name}
-      value={value}
+      value={value || props.value}
       required={props.required}
     />
     <EditorContainer theme={theme}>

@@ -72,6 +72,25 @@ const Spacer = styled.div`
   `};
 `;
 
+const SpacerBlur = styled.div`
+  background-color: ${(props) => props.theme.navBackground}cc;
+  display: block;
+  height: ${(props) => expandedNavHeight(props.theme)}px;
+  position: relative;
+  z-index: 2;
+
+  backdrop-filter: blur(10px);
+
+  ${(props) => !props.isSecondary && `
+    margin-top: -${expandedNavHeight(props.theme)}px;
+  `}
+
+  ${(props) => props.isSecondary && `
+    height: ${props.theme.baseSize}px;
+    margin-bottom: -${props.theme.baseSize}px;
+  `}
+}`;
+
 const NavContent = styled.div`
   display: flex;
   flex: 1 0;
@@ -270,6 +289,7 @@ export default function Navigation(props = {
 
   return <>
     {isSecondary && <Spacer theme={theme} isSecondary={isSecondary} />}
+    {isSecondary && <SpacerBlur theme={theme} isSecondary={isSecondary} />}
     <Nav theme={theme} state={{ ...state, menuOpened }} isSecondary={isSecondary} style={{
       height: (theme) - state.scrollAmount,
       maxHeight: expandedNavHeight(theme) - state.scrollAmount,
@@ -302,5 +322,6 @@ export default function Navigation(props = {
       </ConditionalContainer>
     </Nav >
     {!isSecondary && <Spacer theme={theme} />}
+    {!isSecondary && <SpacerBlur theme={theme} />}
   </>;
 }
