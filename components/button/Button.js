@@ -168,7 +168,7 @@ export default function Button(props = {
 
   return <StyledButton disabled={isDisabled} color={color} theme={theme}
     buttonStyle={props.buttonStyle} noMargin={props.noMargin} block={props.block}
-    blockOnMobile={props.blockOnMobile} {...propsCopy}>
+    blockOnMobile={props.blockOnMobile} type="button" {...propsCopy}>
     {props.children}
   </StyledButton>;
 }
