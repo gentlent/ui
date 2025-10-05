@@ -7,33 +7,23 @@ import { ThemeContext } from '../../context/theme.context';
 
 const StyledIcon = styled(BaseComponent)`
   display: inline-block;
-  height: 0.8em;
-  line-height: 0.8em;
-  margin-inline-start: 0.2em;
-  margin-inline-end: 0.2em;
-  position: relative;
+  height: 1em;
+  line-height: 1em;
+  width: 1em;
   transition: 200ms all ${transitions.default};
-  width: 0.8em;
-  vertical-align: middle;
+  vertical-align: baseline;
+  margin-bottom: -0.14em;
 
   background: url(https://icons.gentcdn.com/${(props) => (props.iconFamily ? `${props.iconFamily}/` : '')}${(props) => props.iconName}${(props) => (props.iconColor ? `?primary=${props.iconColor.slice(1)}` : '')}) no-repeat center center ${(props) => (props.rounded ? '/cover' : '/contain')};
 
-  ${(props) => !props.noMargin && `
-    bottom: 0.05em;
-    right: 0.2em;
-  `}
-
   ${(props) => props.rounded && `
-    height: 1em;
-    width: 1em;
-    line-height: 1em;
     border-radius: 50%;
   `}
 
   ${(props) => props.iconSize && `
-    height: ${props.iconSize * 0.8}em;
-    width: ${props.iconSize * 0.8}em;
-    line-height: ${props.iconSize * 0.8}em;
+    height: ${props.iconSize * 1}em;
+    width: ${props.iconSize * 1}em;
+    line-height: ${props.iconSize * 1}em;
   `}
 
   ${(props) => props.iconLabel && `
@@ -82,6 +72,8 @@ export default function Icon(props = {
 }) {
   const { theme } = useContext(ThemeContext);
   const propsCopy = { ...props };
+  delete propsCopy.style;
+
   if (props.name) {
     propsCopy.iconName = props.name;
     delete propsCopy.name;
@@ -107,7 +99,9 @@ export default function Icon(props = {
     ? propsCopy.iconColor
     : colors[propsCopy.iconColor];
 
-  return <StyledIcon data-icon elementType={'span'} theme={theme} {...propsCopy} iconColor={iconColor}></StyledIcon>;
+  return <>
+    <> </><StyledIcon data-icon elementType={'span'} theme={theme} {...propsCopy} iconColor={iconColor}></StyledIcon><> </>
+  </>;
 }
 
 const StyledLoading = styled(BaseComponent)`
