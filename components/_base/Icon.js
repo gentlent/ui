@@ -14,7 +14,7 @@ const StyledIcon = styled(BaseComponent)`
   vertical-align: baseline;
   margin-bottom: -0.14em;
 
-  ${(props) => !props.skipURLRendering && `
+  ${(props) => `
     background: url(https://icons.gentcdn.com/${(props.iconFamily ? `${props.iconFamily}/` : '')}${props.iconName}${(props.iconColor ? `?primary=${props.iconColor.slice(1)}` : '')}) no-repeat center center ${(props.rounded ? '/cover' : '/contain')};
   `}
 
