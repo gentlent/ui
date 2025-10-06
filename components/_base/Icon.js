@@ -14,7 +14,9 @@ const StyledIcon = styled(BaseComponent)`
   vertical-align: baseline;
   margin-bottom: -0.14em;
 
-  background: url(https://icons.gentcdn.com/${(props) => (props.iconFamily ? `${props.iconFamily}/` : '')}${(props) => props.iconName}${(props) => (props.iconColor ? `?primary=${props.iconColor.slice(1)}` : '')}) no-repeat center center ${(props) => (props.rounded ? '/cover' : '/contain')};
+  ${(props) => !props.skipURLRendering && `
+    background: url(https://icons.gentcdn.com/${(props.iconFamily ? `${props.iconFamily}/` : '')}${props.iconName}${(props.iconColor ? `?primary=${props.iconColor.slice(1)}` : '')}) no-repeat center center ${(props.rounded ? '/cover' : '/contain')};
+  `}
 
   ${(props) => props.rounded && `
     border-radius: 50%;
